@@ -177,3 +177,100 @@ for i, doc in enumerate(docs):
 result = index['cat'].intersection(index['table'])
 
 ```
+
+### Heap
+A heap is a data structure used in computer science for organizing and storing data efficiently. It is called a "heap" because it resembles a heap of elements, with the largest (or smallest) element at the top and the rest of the elements branching downwards.
+
+Here are a few reasons why we might need a heap:
+
+    Efficient access to the largest (or smallest) element: In a max heap, the largest element is always at the root of the heap, making it easy to access and extract. Similarly, in a min heap, the smallest element is always at the root.
+    Priority Queue: Heaps can be used to implement priority queues, where elements with higher priority (or lower value) are given priority over elements with lower priority (or higher value).
+    Sorting Algorithm: Heapsort is a comparison-based sorting algorithm that uses a max heap to sort an array of elements.
+    Dynamic Programming: Heaps are used in various dynamic programming algorithms such as Dijkstra's algorithm and Prim's algorithm.
+    Efficient Data Management: Heaps are efficient for inserting and deleting elements, as well as for maintaining the order of elements. This makes them useful for data management in various applications.
+
+```python
+import heapq
+
+# Create a list of elements
+elements = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
+
+# Convert the list into a heap
+heap = list(elements)
+heapq.heapify(heap)
+
+# Print the heap
+print("Heap:", heap)
+
+# Use heap operations
+
+# Add an element to the heap
+heapq.heappush(heap, 8)
+print("After pushing 8:", heap)
+
+# Remove the smallest element from the heap
+smallest = heapq.heappop(heap)
+print("Smallest element:", smallest)
+print("After popping:", heap)
+
+# Get the smallest element without removing it from the heap
+smallest = heap[0]
+print("Smallest element:", smallest)
+
+```
+| Operation | Function |
+|-----------|----------|
+| Convert list to heap | heapq.heapify(list) |
+| Add element to heap | heapq.heappush(heap, element) |
+| Remove smallest element from heap | heapq.heappop(heap) |
+| Get smallest element in heap | heap[0] |
+
+### What is Tries?
+
+Tries, also known as prefix trees, are a tree-based data structure that is used to store an associative array where the keys are sequences (usually strings). Tries are most commonly used to store a dictionary of words, where each node in the tree represents a single character in a word.
+### Why is Tries Needed?
+
+Tries are a very efficient data structure for certain tasks. For example, searching for a word in a trie is much faster than searching for the same word in a large array or list. Tries are also very useful for finding all words that start with a certain prefix, making them useful for tasks such as autocompletion.
+### Tries Operations in Python 3
+
+The python **collections** module includes a **defaultdict** class that can be used to implement tries. Here is an example of a basic trie implementation using a defaultdict:
+```python
+from collections import defaultdict
+
+class Trie:
+    def __init__(self):
+        self.root = defaultdict()
+
+    def add(self, word):
+        current_node = self.root
+        for letter in word:
+            current_node = current_node.setdefault(letter, {})
+        current_node['*'] = True
+
+    def exists(self, word):
+        current_node = self.root
+        for letter in word:
+            if letter not in current_node:
+                return False
+            current_node = current_node[letter]
+        return '*' in current_node
+
+```
+**Input**
+```python
+trie = Trie()
+trie.add('hello')
+trie.add('hell')
+trie.exists('hello')
+trie.exists('hell')
+trie.exists('he')
+
+```
+**Output**
+```python
+True
+True
+False
+
+```
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/giiaIofn31A/0.jpg)](http://www.youtube.com/watch?v=giiaIofn31A "Trie Data Structure Implementation (LeetCode)")
