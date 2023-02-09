@@ -110,3 +110,25 @@ The output of this code will be:
 
 ```
 In this example, the inverted index is stored as a dictionary where each key is a word (or term) and each value is a list of document IDs that contain that word. You can use the inverted index to quickly find which documents contain a particular word.
+
+You can use this inverted index by searching for a specific word in the dictionary and retrieving the list of document IDs associated with that word. Here's an example:
+```python
+# Search for the word "table" in the inverted index
+if "table" in inverted_index:
+    table_docs = inverted_index["table"]
+    print("The word 'table' appears in documents:", table_docs)
+else:
+    print("The word 'table' does not appear in any documents.")
+
+```
+The output of this code will be:
+```python
+#The word 'table' appears in documents: [0, 1]
+
+```
+This means that the word "table" appears in documents with IDs 0 and 1. You can then retrieve the actual document text by using the document ID to index the docs list:
+```python
+print("Document 0:", docs[0])
+print("Document 1:", docs[1])
+
+```
