@@ -294,3 +294,43 @@ print(factorial(5)) # Output: 120 (cached result)
 
 ```
 In this example, the **factorial** function is decorated with the **functools.lru_cache** decorator, which sets the maximum size of the cache to **None**, meaning that the cache has no limit. The first time the function is called with **n=5**, it will compute the factorial and store the result in the cache. The second time the function is called with **n=5**, it will simply return the cached result, avoiding the need to recompute the factorial.
+
+### Joblib
+Joblib is a library in Python that is used for running parallel computing tasks. It is designed to be fast and memory-efficient, and it is particularly useful for processing large data sets that take a long time to run.
+
+An example use case for Joblib would be if you have a large data set that you want to process and it takes a long time to run on a single machine. With Joblib, you can break down the data set into smaller chunks and run each chunk on a separate machine or process, allowing you to process the data much more quickly.
+
+Here is a simple example of how you can use Joblib in Python:
+
+```python
+from joblib import Parallel, delayed
+import numpy as np
+
+def process_data(data):
+    return data * 2
+
+def main():
+    data = np.arange(1000)
+    results = Parallel(n_jobs=-1)(delayed(process_data)(d) for d in data)
+    print(results)
+
+if __name__ == '__main__':
+    main()
+
+```
+In this example, we are using the **Parallel** class from Joblib to run the **process_data** function in parallel on all elements of the **data** array. The **n_jobs** parameter specifies the number of parallel jobs to run, and a value of -1 means to use all available cores. The **delayed** function is used to wrap the **process_data** function so that it can be run in parallel. The resulting **results** array contains the processed data from each parallel job.
+
+Joblib is a library in Python that provides an on-disk cache. This cache can be used to memoize functions, meaning that their results are stored and can persist between runs. This library is particularly useful in scientific and engineering applications, as it provides efficient memoization of functions that operate on numpy arrays.
+
+To use joblib, the module must be installed using the pip install joblib command. Once installed, the Memory class can be used to memoize functions using the Memory.cache decorator. For example, the code below shows how to use joblib to memoize a function that calculates the sum of two numbers:
+
+```python
+from joblib import Memory
+memory = Memory(cachedir='/path/to/cachedir')
+
+@memory.cache
+def sum2(a, b):
+    return a + b
+
+```
+In this example, the function **sum2** will behave similarly to lru_cache. The results will be stored on-disk in the directory specified by the **cachedir** argument during the Memory initialization, and the cached results will persist over subsequent runs. The **Memory.cache** method also allows limiting recomputation only when certain arguments change. Additionally, the decorated function supports basic functionalities such as clearing and analyzing the cache.
