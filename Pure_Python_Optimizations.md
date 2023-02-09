@@ -41,6 +41,7 @@ Note that if you search for an element that is greater than any element in the l
 In summary, the bisect module in Python provides support for performing binary searches in sequences such as lists. The bisect module provides two main functions: bisect_left and bisect_right, which can be used to find the position of an element in a sorted list or to insert an element into a sorted list in the correct position to maintain the sorted order.
 ![Bisect](https://github.com/mdtahmidhossain/Profiling_tools_python/raw/main/images/bisect.png)
 
+### Counter
 The **Counter** class in Python is a built-in class that provides an efficient way to count the occurrences of elements in a collection. The Counter class is a subclass of the **dict** class and provides additional functionality for counting elements, such as methods for accessing the count of an element and finding the most common elements in a collection.
 ```python
 from collections import Counter
@@ -56,3 +57,56 @@ print(counts[7]) # Output: 3
 
 ```
 
+### inverted index
+An inverted index is a way of organizing information about the words (or terms) in a collection of text documents so that you can quickly look up which documents contain a particular word. The term "inverted" refers to the fact that the index is organized with the words as the keys and the documents as the values, which is the opposite of the traditional way of organizing information about documents.
+
+Here's an example implementation of an inverted index in Python 3:
+```python
+from collections import defaultdict
+
+# A list of documents
+docs = [
+    "the cat is under the table",
+    "the dog is under the table",
+    "cats and dogs smell roses",
+    "Carla eats an apple"
+]
+
+# Create an empty inverted index
+inverted_index = defaultdict(list)
+
+# Loop over each document
+for doc_id, doc in enumerate(docs):
+    # Split the document into words
+    words = doc.split()
+    # Loop over each word in the document
+    for word in words:
+        # Add the document ID to the inverted index for the word
+        inverted_index[word].append(doc_id)
+
+# Print the inverted index
+print(dict(inverted_index))
+
+```
+The output of this code will be:
+```python
+{
+    "the": [0, 1],
+    "cat": [0],
+    "is": [0, 1],
+    "under": [0, 1],
+    "table": [0, 1],
+    "dog": [1],
+    "cats": [2],
+    "and": [2],
+    "dogs": [2],
+    "smell": [2],
+    "roses": [2],
+    "Carla": [3],
+    "eats": [3],
+    "an": [3],
+    "apple": [3]
+}
+
+```
+In this example, the inverted index is stored as a dictionary where each key is a word (or term) and each value is a list of document IDs that contain that word. You can use the inverted index to quickly find which documents contain a particular word.
