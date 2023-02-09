@@ -156,3 +156,24 @@ A set in Python 3 is a collection of unique elements without any specific order.
 | Element Modification | Cannot modify individual elements | Modify values associated with keys |
 | Element Removal | `set.remove()` or `set.discard()` | `del dict[key]` |
 | Built-in Functions | `len()`, `min()`, `max()`, `sorted()` | `len()`, `del`, `clear()`, `get()`, `keys()`, `values()`, `items()` |
+
+
+### Improvement of Inverted index using set:
+
+The use of set operations in the context of building an inverted index, which is a data structure used to efficiently support text search.
+
+The idea is that we start by splitting each document into individual words, and then build a dictionary where each word is associated with a set of document indices that contain that word. The set of indices is represented as a Python set object.
+
+Once we have built the inverted index, we can then use set operations (such as the intersection method) to efficiently answer Boolean queries. For example, we can find all documents that contain both the words "cat" and "table" by intersecting the sets of document indices associated with each word.
+```python
+index = {}
+for i, doc in enumerate(docs):
+    for word in doc.split():
+        if word not in index:
+            index[word] = {i}
+        else:
+            index[word].add(i)
+
+result = index['cat'].intersection(index['table'])
+
+```
