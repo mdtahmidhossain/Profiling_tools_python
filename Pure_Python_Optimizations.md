@@ -40,3 +40,19 @@ Note that if you search for an element that is greater than any element in the l
 
 In summary, the bisect module in Python provides support for performing binary searches in sequences such as lists. The bisect module provides two main functions: bisect_left and bisect_right, which can be used to find the position of an element in a sorted list or to insert an element into a sorted list in the correct position to maintain the sorted order.
 ![Bisect](https://github.com/mdtahmidhossain/Profiling_tools_python/raw/main/images/bisect.png)
+
+The **Counter** class in Python is a built-in class that provides an efficient way to count the occurrences of elements in a collection. The Counter class is a subclass of the **dict** class and provides additional functionality for counting elements, such as methods for accessing the count of an element and finding the most common elements in a collection.
+```python
+from collections import Counter
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 9, 9, 9]
+
+counts = Counter(numbers)
+
+print(counts) # Output: Counter({9: 4, 7: 3, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 8: 1})
+
+print(counts[7]) # Output: 3
+
+
+```
+
