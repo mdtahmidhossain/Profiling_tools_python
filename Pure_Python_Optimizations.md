@@ -404,3 +404,4 @@ print("map_normal peak memory:", %memit map_normal(numbers))
 
 ```
 In this code, we are exploring the use of comprehensions and generators to speed up and improve the memory usage of Python loops. We start by comparing the speed of a loop, a list comprehension, and a generator expression using the **%timeit** function. Next, we compare the speed and memory usage of a loop and a dict comprehension using **%timeit**. Finally, we compare the memory usage of a list comprehension (**map_comprehension**) and a generator (**map_normal**) using the **%memit** function. The results show that comprehensions and generators can be faster and more memory-efficient than traditional loops in Python.
+![comprehensions_generators](https://github.com/mdtahmidhossain/Profiling_tools_python/raw/main/images/comprehensions_generators.png)
