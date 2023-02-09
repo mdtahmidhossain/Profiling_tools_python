@@ -334,7 +334,35 @@ def sum2(a, b):
 
 ```
 In this example, the function **sum2** will behave similarly to lru_cache. The results will be stored on-disk in the directory specified by the **cachedir** argument during the Memory initialization, and the cached results will persist over subsequent runs. The **Memory.cache** method also allows limiting recomputation only when certain arguments change. Additionally, the decorated function supports basic functionalities such as clearing and analyzing the cache.
+### yield
+The **yield** keyword in Python is used to create generator functions, which are functions that can be used to generate an iterable sequence of values. Unlike a normal function, a generator function will pause its execution and return a value whenever it encounters a yield statement. The next time the generator function is called, it will resume execution from where it left off and continue until it reaches the next yield statement or the end of the function. This makes generator functions a more memory-efficient alternative to creating a list of values, as the generator only generates one value at a time, rather than creating a list of all values up front.
 
+Here's a simple example that demonstrates the use of the yield keyword:
+```python
+def fibonacci_sequence(n):
+    a, b = 0, 1
+    for i in range(n):
+        yield a
+        a, b = b, a + b
+
+# Use the generator function to generate the first 10 terms of the fibonacci sequence
+fib = fibonacci_sequence(10)
+for num in fib:
+    print(num)
+
+```
+This will output the following values:
+    0
+    1
+    1
+    2
+    3
+    5
+    8
+    13
+    21
+    34
+    
 ### Comprehensions and generators
 Comprehensions and generators are two different techniques in Python for generating new sequences or collections of data.
 
@@ -404,4 +432,45 @@ print("map_normal peak memory:", %memit map_normal(numbers))
 
 ```
 In this code, we are exploring the use of comprehensions and generators to speed up and improve the memory usage of Python loops. We start by comparing the speed of a loop, a list comprehension, and a generator expression using the **%timeit** function. Next, we compare the speed and memory usage of a loop and a dict comprehension using **%timeit**. Finally, we compare the memory usage of a list comprehension (**map_comprehension**) and a generator (**map_normal**) using the **%memit** function. The results show that comprehensions and generators can be faster and more memory-efficient than traditional loops in Python.
+
+### generator over comprhension
+Generators should be used over comprehensions when memory efficiency is a concern. Comprehensions allocate memory for the entire result set, whereas generators produce values on-the-fly as they are iterated over. Additionally, when the result set is very large, generators can be faster than comprehensions, as they do not need to store all of the results in memory before returning the final result.
+
+Another reason to use generators over comprehensions is if the values of the result set are not required all at once, but rather one at a time, as this allows for better memory management.
+
+However, comprehensions are generally easier to read and write than generators, and are a good choice when memory efficiency is not a concern or when the result set is small.
+
+The memory usage between generators and comprehensions can be evaluated using the memory_profiler extension in an IPython session. For example, consider a scenario where we want to apply a series of operations to a list and take the maximum value.
+
+If we use comprehensions, we will allocate a new list for each comprehension, increasing memory usage:
+```python
+def map_comprehension(numbers):       
+    a = [n * 2 for n in numbers]       
+    b = [n ** 2 for n in a]       
+    c = [n ** 0.33 for n in b]       
+    return max(c)
+
+```
+If we use generators instead, we can compute values on the fly, thus saving memory:
+```python
+def map_normal(numbers):       
+    a = map(lambda n: n * 2, numbers)       
+    b = map(lambda n: n ** 2, a)       
+    c = map(lambda n: n ** 0.33, b)       
+    return max(c)
+
+```
+We can profile the memory usage of these two solutions using the memory_profiler extension in an IPython session:
+
+```python
+%load_ext memory_profiler   
+numbers = range(1000000)   
+%memit map_comprehension(numbers)   
+peak memory: 166.33 MiB, increment: 102.54 MiB   
+%memit map_normal(numbers)   
+peak memory: 71.04 MiB, increment: 0.00 MiB
+
+```
+As seen from the output, the memory used by the comprehension is 102.54 MiB, while the generator uses 0.00 MiB. In scenarios where memory usage is a concern, it's better to use generators instead of comprehensions.
+
 ![comprehensions_generators](https://github.com/mdtahmidhossain/Profiling_tools_python/raw/main/images/comprehensions_generators.png)
