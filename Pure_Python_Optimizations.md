@@ -183,11 +183,11 @@ A heap is a data structure used in computer science for organizing and storing d
 
 Here are a few reasons why we might need a heap:
 
--     Efficient access to the largest (or smallest) element: In a max heap, the largest element is always at the root of the heap, making it easy to access and extract. Similarly, in a min heap, the smallest element is always at the root.
--     Priority Queue: Heaps can be used to implement priority queues, where elements with higher priority (or lower value) are given priority over elements with lower priority (or higher value).
--     Sorting Algorithm: Heapsort is a comparison-based sorting algorithm that uses a max heap to sort an array of elements.
--     Dynamic Programming: Heaps are used in various dynamic programming algorithms such as Dijkstra's algorithm and Prim's algorithm.
--     Efficient Data Management: Heaps are efficient for inserting and deleting elements, as well as for maintaining the order of elements. This makes them useful for data management in various applications.
+- Efficient access to the largest (or smallest) element: In a max heap, the largest element is always at the root of the heap, making it easy to access and extract. Similarly, in a min heap, the smallest element is always at the root.
+- Priority Queue: Heaps can be used to implement priority queues, where elements with higher priority (or lower value) are given priority over elements with lower priority (or higher value).
+- Sorting Algorithm: Heapsort is a comparison-based sorting algorithm that uses a max heap to sort an array of elements.
+- Dynamic Programming: Heaps are used in various dynamic programming algorithms such as Dijkstra’s algorithm and Prim’s algorithm.
+- Efficient Data Management: Heaps are efficient for inserting and deleting elements, as well as for maintaining the order of elements. This makes them useful for data management in various applications
 
 ```python
 import heapq
