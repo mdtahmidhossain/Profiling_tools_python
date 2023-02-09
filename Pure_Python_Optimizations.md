@@ -334,3 +334,73 @@ def sum2(a, b):
 
 ```
 In this example, the function **sum2** will behave similarly to lru_cache. The results will be stored on-disk in the directory specified by the **cachedir** argument during the Memory initialization, and the cached results will persist over subsequent runs. The **Memory.cache** method also allows limiting recomputation only when certain arguments change. Additionally, the decorated function supports basic functionalities such as clearing and analyzing the cache.
+
+### Comprehensions and generators
+Comprehensions and generators are two different techniques in Python for generating new sequences or collections of data.
+
+Comprehensions are a concise way of creating new lists, dictionaries, and sets by processing an existing iterable (e.g. list, tuple, string, etc.) and applying a set of rules to each element. For example, the following code uses a list comprehension to create a new list that squares each number in an existing list:
+```python
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = [x**2 for x in numbers]
+print(squared_numbers) # [1, 4, 9, 16, 25]
+
+```
+Generators, on the other hand, are a way to generate an iterable sequence by using a function that yields one value at a time. Unlike comprehensions, generators do not generate a complete sequence in memory at once, but instead generate values one by one on-the-fly as they are needed. For example, the following code uses a generator function to generate an iterable sequence of even numbers:
+```python
+def even_numbers(limit):
+    number = 0
+    while number < limit:
+        yield number
+        number += 2
+
+for num in even_numbers(10):
+    print(num) # 0, 2, 4, 6, 8
+
+```
+```python
+def loop():
+    res = []
+    for i in range(100000):
+        res.append(i * i)
+    return sum(res)
+
+def comprehension():
+    return sum([i * i for i in range(100000)])
+
+def generator():
+    return sum(i * i for i in range(100000))
+
+print("loop:", %timeit loop())
+print("comprehension:", %timeit comprehension())
+print("generator:", %timeit generator())
+
+def loop():
+    res = {}
+    for i in range(100000):
+        res[i] = i
+    return res
+
+def comprehension():
+    return {i: i for i in range(100000)}
+
+print("loop:", %timeit loop())
+print("comprehension:", %timeit comprehension())
+
+def map_comprehension(numbers):
+    a = [n * 2 for n in numbers]
+    b = [n ** 2 for n in a]
+    c = [n ** 0.33 for n in b]
+    return max(c)
+
+def map_normal(numbers):
+    a = map(lambda n: n * 2, numbers)
+    b = map(lambda n: n ** 2, a)
+    c = map(lambda n: n ** 0.33, b)
+    return max(c)
+
+numbers = range(1000000)
+print("map_comprehension peak memory:", %memit map_comprehension(numbers))
+print("map_normal peak memory:", %memit map_normal(numbers))
+
+```
+In this code, we are exploring the use of comprehensions and generators to speed up and improve the memory usage of Python loops. We start by comparing the speed of a loop, a list comprehension, and a generator expression using the **%timeit** function. Next, we compare the speed and memory usage of a loop and a dict comprehension using **%timeit**. Finally, we compare the memory usage of a list comprehension (**map_comprehension**) and a generator (**map_normal**) using the **%memit** function. The results show that comprehensions and generators can be faster and more memory-efficient than traditional loops in Python.
