@@ -274,3 +274,23 @@ False
 
 ```
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/giiaIofn31A/0.jpg)](http://www.youtube.com/watch?v=giiaIofn31A "Trie Data Structure Implementation (LeetCode)")
+
+### Caching and memoization
+**lru_cache** is a decorator provided by the functools module in Python. It is used to cache the results of a function so that they can be reused later. The cache is limited by size, and when it reaches its limit, the least recently used items will be removed to make room for new items. The purpose of the lru_cache is to speed up your program by avoiding the need to recompute the same values over and over again.
+
+Here is an example of how you might use the lru_cache to cache the results of a function that computes the factorial of a number:
+```python
+import functools
+
+@functools.lru_cache(maxsize=None)
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+print(factorial(5)) # Output: 120
+print(factorial(5)) # Output: 120 (cached result)
+
+```
+In this example, the **factorial** function is decorated with the **functools.lru_cache** decorator, which sets the maximum size of the cache to **None**, meaning that the cache has no limit. The first time the function is called with **n=5**, it will compute the factorial and store the result in the cache. The second time the function is called with **n=5**, it will simply return the cached result, avoiding the need to recompute the factorial.
