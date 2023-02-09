@@ -39,3 +39,4 @@ In this example, the **bisect_right** function returns the position **4**, which
 Note that if you search for an element that is greater than any element in the list, the bisect_right function will return the length of the list, which is equivalent to appending the new element to the end of the list.
 
 In summary, the bisect module in Python provides support for performing binary searches in sequences such as lists. The bisect module provides two main functions: bisect_left and bisect_right, which can be used to find the position of an element in a sorted list or to insert an element into a sorted list in the correct position to maintain the sorted order.
+![Bisect](https://github.com/mdtahmidhossain/Profiling_tools_python/raw/main/images/bisect.png)
