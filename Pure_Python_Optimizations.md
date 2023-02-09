@@ -132,3 +132,27 @@ print("Document 0:", docs[0])
 print("Document 1:", docs[1])
 
 ```
+### dictionary
+A dictionary in Python 3 is an unordered collection of key-value pairs. It allows you to store and access data using a key, which can be any hashable object, instead of an index. Dictionaries are used to store and retrieve values based on a key, and are often used when working with large amounts of data.
+
+### set
+A set in Python 3 is a collection of unique elements without any specific order. It is useful for performing operations like union, intersection, and difference.
+
+| Operation | Time Complexity |
+|-----------|-----------------|
+| Membership test (`x in s`)  | O(1) (sets, dictionaries)<br>O(n) (lists) |
+| Adding an element (`s.add(x)`)  | O(1) (sets)<br>O(n) (lists) |
+| Removing an element (`s.remove(x)`)  | O(1) (sets)<br>O(n) (lists) |
+| Union (`s1 + s2`)  | O(min(len(s1), len(s2))) |
+| Intersection (`s1 & s2`)  | O(min(len(s1), len(s2))) |
+| Difference (`s1 - s2`)  | O(len(s1)) |
+
+### Here is a more detailed table comparing the differences between sets and dictionaries in Python 3:
+| Feature | Set | Dictionary |
+|---------|-----|-----------|
+| Definition | An unordered collection of unique elements | An unordered collection of key-value pairs |
+| Element Insertion | `set.add()` or `{element1, element2, ...}` | `dict[key] = value` or `{key1: value1, key2: value2, ...}` |
+| Element Access | `in` operator | Key |
+| Element Modification | Cannot modify individual elements | Modify values associated with keys |
+| Element Removal | `set.remove()` or `set.discard()` | `del dict[key]` |
+| Built-in Functions | `len()`, `min()`, `max()`, `sorted()` | `len()`, `del`, `clear()`, `get()`, `keys()`, `values()`, `items()` |
