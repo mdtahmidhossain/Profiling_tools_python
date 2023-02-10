@@ -315,3 +315,16 @@ This code demonstrates how to create and optimize a linked list using Numba. The
 The node_type variable is defined as a deferred type, which is used to specify the type of the next attribute in the node_spec list. The Node class is then compiled using Numba's jitclass decorator and node_spec list, which defines the attributes of the class.
 
 The node_type.define(Node.class_type.instance_type) line is used to define the type of the next attribute as the type of the Node class itself. This is necessary because the next attribute is a reference to another Node object.
+
+###Limitations in Numba
+- Numba only supports a limited subset of the Python language, which can result in code that cannot be accelerated by Numba.
+
+- Numba can only optimize code that is purely numerical in nature. If a function contains non-numerical operations, it cannot be optimized by Numba.
+
+- Numba relies on type information for optimization, so code that uses dynamically typed variables cannot be optimized by Numba.
+
+- Numba's Just-In-Time (JIT) compilation can add overhead to the runtime of a function. This overhead can be significant if the function is called many times.
+
+- Numba can only accelerate functions that are called from pure Python. If a function is called from within a C library, for example, it cannot be accelerated by Numba.
+
+- Numba is not suitable for large-scale parallel computing, as it does not currently have support for parallel processing.
