@@ -316,7 +316,7 @@ The node_type variable is defined as a deferred type, which is used to specify t
 
 The node_type.define(Node.class_type.instance_type) line is used to define the type of the next attribute as the type of the Node class itself. This is necessary because the next attribute is a reference to another Node object.
 
-###Limitations in Numba
+### Limitations in Numba
 - Numba only supports a limited subset of the Python language, which can result in code that cannot be accelerated by Numba.
 
 - Numba can only optimize code that is purely numerical in nature. If a function contains non-numerical operations, it cannot be optimized by Numba.
