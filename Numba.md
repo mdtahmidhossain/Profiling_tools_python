@@ -16,6 +16,19 @@ import numpy as np
 import time
 
 def calculate_mean(arr):
+    """
+    Calculate the mean of a NumPy array.
+
+    Parameters
+    ----------
+    arr : numpy.ndarray
+        The input array.
+
+    Returns
+    -------
+    float
+        The mean of the input array.
+    """
     sum = 0
     for i in range(arr.shape[0]):
         sum += arr[i]
@@ -23,25 +36,45 @@ def calculate_mean(arr):
 
 @numba.jit
 def calculate_mean_numba(arr):
+    """
+    Calculate the mean of a NumPy array using Numba.
+
+    Parameters
+    ----------
+    arr : numpy.ndarray
+        The input array.
+
+    Returns
+    -------
+    float
+        The mean of the input array.
+    """
     sum = 0
     for i in range(arr.shape[0]):
         sum += arr[i]
     return sum / arr.shape[0]
 
-# Generate an array of random numbers
-arr = np.random.rand(1000000)
+def main():
+    """
+    Main function to compare the speed of the two mean calculation functions.
+    """
+    # Generate an array of random numbers
+    arr = np.random.rand(1000000)
 
-start = time.time()
-mean = calculate_mean(arr)
-end = time.time()
-print("Mean (Pure Python):", mean)
-print("Time (Pure Python):", end - start, "seconds")
+    start = time.time()
+    mean = calculate_mean(arr)
+    end = time.time()
+    print("Mean (Pure Python):", mean)
+    print("Time (Pure Python):", end - start, "seconds")
 
-start = time.time()
-mean = calculate_mean_numba(arr)
-end = time.time()
-print("Mean (Numba):", mean)
-print("Time (Numba):", end - start, "seconds")
+    start = time.time()
+    mean = calculate_mean_numba(arr)
+    end = time.time()
+    print("Mean (Numba):", mean)
+    print("Time (Numba):", end - start, "seconds")
+
+if __name__ == "__main__":
+    main()
 
 ```
 I will start testing with **1000000**
