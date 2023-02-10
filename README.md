@@ -44,7 +44,10 @@ You can also run perf from the terminal using the **python -m perf **command. Fo
 ```shell
 python -m perf timeit my_script.py
 ```
-
+```shell
+python -m perf timeit --setup 'from simul import benchmark' 'benchmark()
+```
+The **python -m perf timeit** command measures the execution time of a Python script or command using the **perf** module. The **--setup** argument allows you to specify a setup string that will be executed prior to the command you want to time. In this case, the setup string '**from simul import benchmark**' is importing the **benchmark** function from the **simul** module. Finally, the command **'benchmark()'** specifies the function you want to time. So the full command will time the execution of the **benchmark** function from the **simul** module.
 ### line_profiler
 
 line_profiler is a tool that provides line-by-line profiling information for Python code. To use line_profiler, you need to install it using pip. For example, if you want to profile the my_function function, you would run the following code:
