@@ -122,3 +122,94 @@ if __name__ == '__main__':
 In this example, we use the **float64** type for both inputs and the output of the **add** function. This means that Numba will only compile the function for inputs and outputs of type **float64**. If you try to call the function with inputs of a different type, you will get an error.
 
 The **add** function simply returns the sum of its two inputs. When you run this code, the output will be **3.0**.
+
+Numba supports several data types for type specializations, including 
+**1. int8**
+**2. int16**
+**3. int32**
+**4. int64**
+**5. uint8**
+**6. uint16**
+**7. uint32**
+**8. uint64**
+**9. float32**
+**10. float64**
+
+Here's an example that demonstrates the use of different data types in Numba:
+```python
+import numpy as np
+from numba import jit, int32, int64, float32, float64
+
+@jit(int32(int32, int32))
+def add_int32(a, b):
+    return a + b
+
+@jit(int64(int64, int64))
+def add_int64(a, b):
+    return a + b
+
+@jit(float32(float32, float32))
+def add_float32(a, b):
+    return a + b
+
+@jit(float64(float64, float64))
+def add_float64(a, b):
+    return a + b
+
+if __name__ == '__main__':
+    print(add_int32(1, 2))
+    print(add_int64(1, 2))
+    print(add_float32(1.0, 2.0))
+    print(add_float64(1.0, 2.0))
+
+```
+In this example, we have four functions **add_int32, add_int64, add_float32, and add_float64**, each with a different type signature. The add_int32 function takes two inputs of type int32 and returns an int32 result. The add_int64 function takes two inputs of type int64 and returns an int64 result. The add_float32 function takes two inputs of type float32 and returns a float32 result. And the add_float64 function takes two inputs of type float64 and returns a float64 result.
+
+When you run this code, the output will be:
+    3
+    3
+    3.0
+    3.0
+    
+Following tells Numba to compile the **mean** function using type specializations for **float64[:]**, which means that the input of the function is an array of float64 type and there is no output.
+```python
+@jit((float64[:],))
+def mean(array):
+    return sum(array) / len(array)
+
+```
+
+#### In Numba, there are two modes of operation: object mode and native mode.
+
+**Object mode** is the default mode in which Numba compiles Python code into machine code that is executed within the Python runtime environment. This mode is more flexible than native mode, as it can handle a wider range of Python constructs and data types. However, because the machine code is executed within the Python runtime, it can be slower than native mode.
+
+**Native mode**, on the other hand, is a higher-performance mode in which Numba compiles Python code directly into machine code that is executed outside the Python runtime environment. This mode is more restrictive than object mode, as it can only handle a limited set of Python constructs and data types. However, because the machine code is executed outside the Python runtime, it can be much faster than object mode.
+
+| Feature | Object Mode | Native Mode |
+| --- | --- | --- |
+| Flexibility | High | Low |
+| Performance | Moderate | High |
+| Supports a wider range of Python constructs and data types | Yes | No |
+| Executed within the Python runtime environment | Yes | No |
+
+### inspect_types
+**inspect_types** is a Numba function that can be used to inspect the intermediate representation of a Numba compiled function. This function can provide information about the types of arguments and variables in the function, as well as the type of the returned value.
+
+Here's an example that demonstrates the use of **inspect_types**:
+```python
+import numpy as np
+import numba as nb
+
+@nb.njit
+def my_func(a, b):
+    c = a + b
+    return c
+
+my_func_types = nb.inspect_types(my_func)
+print(my_func_types)
+
+```
+Output:
+    my_func (array(float64, 1d, C), array(float64, 1d, C)) -> array(float64, 1d, C)
+    
+In this example, inspect_types is used to inspect the intermediate representation of the my_func function. The output shows that my_func takes two 1-dimensional arrays of type float64, and returns a 1-dimensional array of type float64.
