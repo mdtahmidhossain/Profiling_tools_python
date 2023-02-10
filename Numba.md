@@ -213,3 +213,105 @@ Output:
     my_func (array(float64, 1d, C), array(float64, 1d, C)) -> array(float64, 1d, C)
     
 In this example, inspect_types is used to inspect the intermediate representation of the my_func function. The output shows that my_func takes two 1-dimensional arrays of type float64, and returns a 1-dimensional array of type float64.
+
+| Numba Function | Equivalent NumPy Function |
+| -------------  | -------------------------- |
+| `numba.math.abs` | `numpy.abs` |
+| `numba.math.exp` | `numpy.exp` |
+| `numba.math.log` | `numpy.log` |
+| `numba.math.log10` | `numpy.log10` |
+| `numba.math.sqrt` | `numpy.sqrt` |
+| `numba.math.sin` | `numpy.sin` |
+| `numba.math.cos` | `numpy.cos` |
+| `numba.math.tan` | `numpy.tan` |
+| `numba.math.arcsin` | `numpy.arcsin` |
+| `numba.math.arccos` | `numpy.arccos` |
+| `numba.math.arctan` | `numpy.arctan` |
+
+### JIT Classes
+```python
+import numba as nb
+
+# Define the node type using a deferred type. This allows us to define the type later after the Node class has been created.
+node_type = nb.deferred_type()
+
+# Define the specifications for the Node class. The first specification is for the next node in the linked list, which is optional. The second specification is for the value of the node.
+node_spec = [
+    ('next', nb.optional(node_type)),
+    ('value', nb.int64)
+]
+
+# Use the jitclass decorator to compile the Node class to machine code.
+@nb.jitclass(node_spec)
+class Node:
+    """
+    Class to represent a node in a linked list.
+    
+    Attributes:
+        next (Node, optional): The next node in the linked list.
+        value (int): The value of the node.
+    """
+    def __init__(self, value):
+        """
+        Initialize a new instance of the Node class.
+        
+        Args:
+            value (int): The value of the node.
+        """
+        self.value = value
+        self.next = None
+
+# Define the node type using the instance type of the Node class. This must be done after the Node class has been created.
+node_type.define(Node.class_type.instance_type)
+
+# Define the specifications for the LinkedList class. The only specification is for the head of the linked list, which is optional.
+ll_spec = [
+    ('head', nb.optional(Node.class_type.instance_type))
+]
+
+# Use the jitclass decorator to compile the LinkedList class to machine code.
+@nb.jitclass(ll_spec)
+class LinkedList:
+    """
+    Linked List class that consists of Nodes
+    """
+    def __init__(self):
+        """
+        Initialize an empty linked list
+        """
+        self.head = None
+        
+    def insert_node(self, value):
+        """
+        Insert a new Node with the given value to the front of the linked list
+        
+        Parameters:
+        - value (int64): Value to be stored in the Node
+        """
+        self.head = Node(value, next=self.head)
+        
+    def print_linked_list(self):
+        """
+        Print the linked list by following the reference to the next Node
+        """
+        node = self.head
+        while node is not None:
+            print(node.value, end=' ')
+            node = node.next
+        print('')
+
+# Example usage of the LinkedList class
+if __name__ == '__main__':
+    ll = LinkedList()
+    ll.insert_node(1)
+    ll.insert_node(2)
+    ll.insert_node(3)
+    ll.print_linked_list()
+
+
+```
+This code demonstrates how to create and optimize a linked list using Numba. The linked list consists of Nodes, each of which has a value attribute and a reference to the next Node, next.
+
+The node_type variable is defined as a deferred type, which is used to specify the type of the next attribute in the node_spec list. The Node class is then compiled using Numba's jitclass decorator and node_spec list, which defines the attributes of the class.
+
+The node_type.define(Node.class_type.instance_type) line is used to define the type of the next attribute as the type of the Node class itself. This is necessary because the next attribute is a reference to another Node object.
