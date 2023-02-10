@@ -101,4 +101,24 @@ It looks like in this case, Numba is significantly faster than pure Python. The 
 
 The **pure Python function took 81.67 seconds** to run, while the **Numba function took only 2.52 seconds** to run. This shows that Numba is able to significantly speed up the calculation of the mean.
 
+### Type specializations
 It's possible that increasing the size of the input array would lead to an even greater difference in performance between the two functions.
+
+Numba provides type specializations, which means that you can specify the data type of the input and output of a Numba-compiled function. This can lead to performance improvements by allowing Numba to generate more optimized code.
+
+Here's an example of how you can use type specializations in Numba:
+```python
+import numpy as np
+from numba import jit, float64
+
+@jit(float64(float64, float64))
+def add(a, b):
+    return a + b
+
+if __name__ == '__main__':
+    print(add(1.0, 2.0))
+
+```
+In this example, we use the **float64** type for both inputs and the output of the **add** function. This means that Numba will only compile the function for inputs and outputs of type **float64**. If you try to call the function with inputs of a different type, you will get an error.
+
+The **add** function simply returns the sum of its two inputs. When you run this code, the output will be **3.0**.
