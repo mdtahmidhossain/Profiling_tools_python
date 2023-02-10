@@ -19,6 +19,32 @@ Convert the output file with pyprof2calltree and launch KCachegrind:
 pyprof2calltree -i prof.out -o prof.calltree
 kcachegrind prof.calltree # or qcachegrind prof.calltree
 ```
+### perf
+perf is a performance analysis tool for Python programs. It helps in profiling the performance of Python code, including the time it takes to run each function and how often each function is called.
+```shell
+pip install perf
+```
+To use **perf**, you can use the perf module in your Python code. For example, to profile a specific function, you can wrap the function with the **perf.perf_counter()** method:
+
+```python
+import perf
+
+def my_function():
+    # Your code here
+
+if __name__ == "__main__":
+    perf_counter = perf.perf_counter()
+    perf_counter.start()
+    my_function()
+    perf_counter.stop()
+    perf_counter.print_stats()
+
+```
+You can also run perf from the terminal using the **python -m perf **command. For example:
+```shell
+python -m perf timeit my_script.py
+```
+
 ### line_profiler
 
 line_profiler is a tool that provides line-by-line profiling information for Python code. To use line_profiler, you need to install it using pip. For example, if you want to profile the my_function function, you would run the following code:
